@@ -10,8 +10,6 @@ import {
   Dialog,
 } from "@mui/material";
 
-import { DialogStyles } from "./DialogStyles";
-
 export interface DialogConfirmationProps
   extends Omit<DialogProps, "onClose" | "title"> {
   title: string | ReactNode;
@@ -68,8 +66,6 @@ const DialogConfirmation = ({
   onClose,
   ...rest
 }: PropsWithChildren<DialogConfirmationProps>) => {
-  const { classes } = DialogStyles();
-
   const ignore = () => canCloseOnClickOutside && !disabled && onClose(null);
 
   const onAccept = () => onClose(true);
@@ -83,7 +79,11 @@ const DialogConfirmation = ({
       maxWidth={maxWidth}
       onClose={ignore}
       open={visible}>
-      {title && <DialogTitle className={classes.title}>{title}</DialogTitle>}
+      {title && (
+        <DialogTitle sx={{ fontSize: "16px", fontWeight: "bold" }}>
+          {title}
+        </DialogTitle>
+      )}
       {children && <DialogContent>{children}</DialogContent>}
       <DialogActions>
         {showAccept && (
